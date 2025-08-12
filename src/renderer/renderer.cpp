@@ -63,13 +63,11 @@ void Renderer::updateParticlesVA()
     const uint64_t objects_count = solver.objects.size();
 
     for (uint64_t i = 0; i < objects_count; ++i) {
-        const PhysicObject& object = *solver.objects.data[i];
-        const BallObject* ball = dynamic_cast<const BallObject*>(&object);
-        if (!ball) continue; // Only render BallObject-derived types
+        const BallObject& object = *solver.objects.data[i];
 
-        std::cout << "Rendering ball " << ball->number << "\n";
+        std::cout << "Rendering ball " << object.number << "\n";
 
-        const std::string& tex_name = ball->number;
+        const std::string& tex_name = object.number;
 
         auto& va = objects_va_map[tex_name];
         if (va.getPrimitiveType() != sf::Quads)

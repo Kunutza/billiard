@@ -1,6 +1,6 @@
 #pragma once
-#include "physics.hpp"
 #include <cstdint>
+#include "physic_object.hpp"
 #include <string>
 
 class BallObject: public PhysicObject {

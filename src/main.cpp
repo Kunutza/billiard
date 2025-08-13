@@ -1,11 +1,13 @@
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <random>
 #include <string>
 
 #include "engine/window_context_handler.hpp"
 #include "engine/common/color_utils.hpp"
 
+#include "physics/ball_object.hpp"
 #include "physics/physic_object.hpp"
 #include "physics/physics.hpp"
 #include "renderer/renderer.hpp"
@@ -37,7 +39,14 @@ TODO what happens with the floating point precision?
 TODO is there any error correction in here? most likely there isnt, the 
 error may always be the same so I get the same results every time, and that
 may mean that someone with another machine may get different results
-**** TODO add ball textures for each ball
+**** TODO add ball textures for each ball ******
+**** TODO collisions with the walls are not done correctly, sometimes the balls
+get less momentum than they should, I think it has to do with the fact that 
+when the ball gets out of bounds its position is set onto the wall, if I 
+removed that "position fix" I think it will behave fine again. I think that 
+that "position fix" makes those shitty bounce mechanics because of the way the
+physics/movement system works, using the last position, JUST COPY THE 
+SOLVECONTACT FUNCTION ******
 TODO add friction (using std::max if vel drops under thresshold then friction 
 is constant)
 
@@ -118,6 +127,11 @@ int main()
 
         auto ptr = solver.objects[id].get();
         std::cout << "Created ball index " << id << " at address " << ptr << "\n";
+    }
+
+    for (const std::unique_ptr<BallObject>& object: solver.objects) {
+        std::cout << "Object" << object->name << " " << object.get() << "\n";
+        std::cout << "Pos " << object->position.x << object->position.y << "\n";
     }
 
     // Main loop

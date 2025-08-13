@@ -26,6 +26,7 @@ TODO make ballobject from physicsobject
 TODO fix physics.hpp addObjectToGrid, updateObjects
 TODO change map border collisions
 TODO fullscreen mode
+TODO add ball textures for each ball
 
 TODO REMOVE GRAVITY (I did not remove. just set it to {0.0f, 0.0f}). Should 
 I remove it completely?
@@ -39,7 +40,6 @@ TODO what happens with the floating point precision?
 TODO is there any error correction in here? most likely there isnt, the 
 error may always be the same so I get the same results every time, and that
 may mean that someone with another machine may get different results
-**** TODO add ball textures for each ball ******
 **** TODO collisions with the walls are not done correctly, sometimes the balls
 get less momentum than they should, I think it has to do with the fact that 
 when the ball gets out of bounds its position is set onto the wall, if I 
@@ -113,7 +113,6 @@ int main()
     // Create all the balls in the scene
     for (uint32_t i{0}; i < 16; i++) {
         
-        std::cout << "Created ball " << i << "\n";
         const auto id = solver.createObject(
                 {
                 PhysicObject::radius * 2 + PhysicObject::radius * i, 
@@ -122,16 +121,10 @@ int main()
                 std::to_string(i)
                 );
         // solver.objects[id].last_position.x -= 0.2f;
-        solver.objects[id]->last_position.y -= 0.1f;
+        solver.objects[id]->addVelocity({0.0f, 0.1f});
         solver.objects[id]->color = ColorUtils::getRainbow(id * 1.f);
 
         auto ptr = solver.objects[id].get();
-        std::cout << "Created ball index " << id << " at address " << ptr << "\n";
-    }
-
-    for (const std::unique_ptr<BallObject>& object: solver.objects) {
-        std::cout << "Object" << object->name << " " << object.get() << "\n";
-        std::cout << "Pos " << object->position.x << object->position.y << "\n";
     }
 
     // Main loop

@@ -6,12 +6,12 @@
 class BallObject: public PhysicObject {
 public:
 
-    BallObject(const Vec2 position, const std::string& name_)
+    BallObject(const Vec2 position, const std::string name_)
         : PhysicObject{position}, name{name_} {}
     virtual ~BallObject() = default;
 
 public:
-    const std::string& name;
+    const std::string name;
 
     // const float friction = 0.2f;
 
@@ -29,7 +29,7 @@ public:
 class RegularBall : public BallObject {
 
 public:
-    RegularBall(const Vec2 position, const std::string& name)
+    RegularBall(const Vec2 position, const std::string name)
         : BallObject{position, name} {}
 
 };
@@ -38,7 +38,7 @@ public:
 class WhiteBall : public BallObject {
 
 public:
-    WhiteBall(const Vec2 position, const std::string& name)
+    WhiteBall(const Vec2 position, const std::string name)
        : BallObject(position, name) {}
 
 };

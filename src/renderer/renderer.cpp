@@ -65,16 +65,9 @@ void Renderer::updateParticlesVA()
     for (uint64_t i = 0; i < objects_count; ++i) {
         const BallObject& object = *solver.objects[i];
 
-        std::cout << "Ball index " << i << " -> number = " << object.name << "\n";
-        std::cout << "NAME " << solver.objects[i]->name << "\n";
-
         const std::string& tex_name = object.name;
 
         bool tex_exists = (textures.find(tex_name) != textures.end());
-        std::cout << "Ball " << tex_name
-                  << (tex_exists ? " has texture\n" : " NO texture loaded!\n");
-        auto objPtr = solver.objects[i].get(); // assuming unique_ptr
-        std::cout << "Rendering ball index " << i << " from address " << objPtr << "\n";
 
         auto& va = objects_va_map[tex_name];
         if (va.getPrimitiveType() != sf::Quads)
@@ -96,16 +89,12 @@ void Renderer::updateParticlesVA()
         va[idx + 3].texCoords = {0.0f        , texture_size};
 
         // Color
-        const sf::Color color = object.color;
+        /*const sf::Color color = object.color;
         va[idx + 0].color = color;
         va[idx + 1].color = color;
         va[idx + 2].color = color;
         va[idx + 3].color = color;
-    }
-
-    std::cout << "VA map entries:\n";
-    for (const auto& [key, va] : objects_va_map) {
-        std::cout << " - key '" << key << "' has " << va.getVertexCount()/4 << " quads\n";
+        */
     }
 }
 

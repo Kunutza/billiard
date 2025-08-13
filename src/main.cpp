@@ -27,6 +27,7 @@ TODO fix physics.hpp addObjectToGrid, updateObjects
 TODO change map border collisions
 TODO fullscreen mode
 TODO add ball textures for each ball
+TODO fix ball collisions with walls
 
 TODO REMOVE GRAVITY (I did not remove. just set it to {0.0f, 0.0f}). Should 
 I remove it completely?
@@ -34,21 +35,15 @@ TODO const float VELOCITY_DAMPING = 40.0f; // arbitrary, approximating air
 friction, I may need that
 TODO am I using substeps? yes, 8 at physics.hpp
 
+TODO add friction (using std::max if vel drops under thresshold then friction 
+is constant)
+TODO add spin and depict it
 
 TODO what happens with the fps and the time intervals? what if fps is irregular
 TODO what happens with the floating point precision?
 TODO is there any error correction in here? most likely there isnt, the 
 error may always be the same so I get the same results every time, and that
 may mean that someone with another machine may get different results
-**** TODO collisions with the walls are not done correctly, sometimes the balls
-get less momentum than they should, I think it has to do with the fact that 
-when the ball gets out of bounds its position is set onto the wall, if I 
-removed that "position fix" I think it will behave fine again. I think that 
-that "position fix" makes those shitty bounce mechanics because of the way the
-physics/movement system works, using the last position, JUST COPY THE 
-SOLVECONTACT FUNCTION ******
-TODO add friction (using std::max if vel drops under thresshold then friction 
-is constant)
 
 TODO since number of balls is small and fixed I could just use an array
 

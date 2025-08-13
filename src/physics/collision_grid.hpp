@@ -36,8 +36,6 @@ struct CollisionCell
                 return;
             }
         }
-
-        //std::cout << "Problem" << std::endl;
     }
 };
 

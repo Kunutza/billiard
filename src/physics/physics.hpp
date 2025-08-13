@@ -4,12 +4,11 @@
 #include "physic_object.hpp"
 #include "ball_object.hpp"
 #include "engine/common/utils.hpp"
-#include "engine/common/index_vector.hpp"
 
 
 struct PhysicSolver
 {
-    CIVector<std::unique_ptr<BallObject>>   objects;
+    std::vector<std::unique_ptr<BallObject>> objects;
     CollisionGrid          grid;
     Vec2                   world_size;
     Vec2                   gravity = {0.0f, 0.0f};
@@ -49,8 +48,8 @@ struct PhysicSolver
         constexpr float response_coef = 1.0f;
         constexpr float eps = 0.0001f;
 
-        BallObject& obj_1 = *objects.data[atom_1_idx];
-        BallObject& obj_2 = *objects.data[atom_2_idx];
+        BallObject& obj_1 = *objects[atom_1_idx];
+        BallObject& obj_2 = *objects[atom_2_idx];
 
         const Vec2 o2_o1 = obj_1.position - obj_2.position;
         const float dist2 = o2_o1.x * o2_o1.x + o2_o1.y * o2_o1.y;
@@ -115,7 +114,8 @@ void processCell(const CollisionCell& c, uint32_t index)
     // Add a new object to the solver
     uint64_t addObject(std::unique_ptr<BallObject> object)
     {
-        return objects.push_back(std::move(object));
+        objects.push_back(std::move(object));
+        return objects.size() - 1;
     }
 
     // Add a new object to the solver
@@ -130,7 +130,7 @@ void processCell(const CollisionCell& c, uint32_t index)
         grid.clear();
         uint32_t i{0};
 
-        for (const auto& obj_ptr : objects.data) {
+        for (const auto& obj_ptr : objects) {
             const BallObject& obj = *obj_ptr;
 
             // Calculate the bounding box of the object based on its radius

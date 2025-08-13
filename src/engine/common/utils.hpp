@@ -1,5 +1,4 @@
 #pragma once
-#include "index_vector.hpp"
 #include <sstream>
 
 
@@ -8,10 +7,6 @@ U to(const T& v)
 {
     return static_cast<U>(v);
 }
-
-
-template<typename T>
-using CIVector = civ::Vector<T>;
 
 
 template<typename T>

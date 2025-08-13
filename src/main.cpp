@@ -115,6 +115,9 @@ int main()
         // solver.objects[id].last_position.x -= 0.2f;
         solver.objects[id]->last_position.y -= 0.1f;
         solver.objects[id]->color = ColorUtils::getRainbow(id * 1.f);
+
+        auto ptr = solver.objects[id].get();
+        std::cout << "Created ball index " << id << " at address " << ptr << "\n";
     }
 
     // Main loop

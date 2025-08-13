@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics/Color.hpp>
-#include "utils.hpp"
 #include "math.hpp"
 
 
